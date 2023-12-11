@@ -1,7 +1,6 @@
-import ListPet from "../ListPetComponent"
+import ListPet from '../ListPetComponent'
 
 const Home: React.FC = () => {
-
   return (
     <>
       <ListPet />

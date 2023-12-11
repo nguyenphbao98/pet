@@ -1,25 +1,24 @@
-import { PetProps } from "../components/PetComponent/Pet";
+import { PetProps } from '../components/PetComponent/Pet'
 
-export type Dog = PetProps & {
-    id: number;
-    breed: string;
-  };
-
-const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-const API_URL = 'https://dogdummyapi.herokuapp.com/dogs';
+const API_URL = 'https://petstore.swagger.io/v2/pet/findByStatus?status=pending'
 
 export const fetchPets = async (): Promise<PetProps[]> => {
   try {
-    const response = await fetch(`${CORS_PROXY}${API_URL}`);
+    const response = await fetch(`${API_URL}`, {
+      headers: {
+        Accept: 'application/json',
+        // Add any other required headers
+      },
+    })
 
     if (!response.ok) {
-        throw new Error(`Failed to fetch dogs. Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      return data as Dog[];
+      throw new Error(`Failed to fetch dogs. Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data as PetProps[]
   } catch (error) {
-    console.error('Error fetching dog data:', error);
-    throw error;
+    console.error('Error fetching dog data:', error)
+    throw error
   }
-};
+}
